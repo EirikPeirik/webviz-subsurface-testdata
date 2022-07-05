@@ -1,0 +1,116 @@
+---
+title: Drogon Webviz Demonstration
+
+shared_settings:
+ predefined_expressions:
+   timeseries_expressions: ../vector_calculator_expressions/predefined_vector_calculator_expressions.yaml
+ scratch_ensembles:
+   sens_run: ../01_drogon_design/realization-*/iter-0
+   iter-0: ../01_drogon_ahm/realization-*/iter-0
+   iter-3: ../01_drogon_ahm/realization-*/iter-3
+   iter-0-surfaces: ../01_drogon_ahm/realization-[0-1]/iter-0
+
+# Ensembles used for sensitivity analysis
+dm_ensembles: &dm_ensembles
+  - sens_run
+
+# Ensembles used for history matching analysis
+hm_ensembles: &hm_ensembles
+  - iter-0
+  - iter-3
+
+# Shared settings
+obsfile: &obsfile ../01_drogon_ahm/share/observations/tables/ert_observations.yml
+
+scalfile: &scalfile ../01_drogon_ahm/realization-0/iter-0/rms/output/pyscal/pyscal_config_lowbasehigh.csv
+
+fipfile: &fipfile ../01_drogon_ahm/realization-0/iter-0/share/results/tables/fip.yml
+
+segyfiles: &segyfiles
+  - ../01_drogon_ahm/realization-0/iter-0/share/results/seismic/seismic--amplitude_depth--20180701_20180101.segy
+  - ../01_drogon_ahm/realization-0/iter-0/share/results/seismic/seismic--amplitude_depth--20200701_20190701.segy
+
+gridfile: &gridfile ../01_drogon_ahm/realization-0/iter-0/share/results/grids/geogrid.roff
+
+gridparameterfiles: &gridparameterfiles
+  - ../01_drogon_ahm/realization-0/iter-0/share/results/grids/geogrid--phit.roff
+  - ../01_drogon_ahm/realization-0/iter-0/share/results/grids/geogrid--facies.roff
+
+surfacefiles: &surfacefiles
+  - ../01_drogon_ahm/realization-0/iter-0/share/results/maps/topvolon--ds_extract_geogrid.gri
+  - ../01_drogon_ahm/realization-0/iter-0/share/results/maps/toptherys--ds_extract_geogrid.gri
+  - ../01_drogon_ahm/realization-0/iter-0/share/results/maps/topvolantis--ds_extract_geogrid.gri
+  - ../01_drogon_ahm/realization-0/iter-0/share/results/maps/basevolantis--ds_extract_geogrid.gri
+
+surfacenames: &surfacenames
+  - Top Volon
+  - Top Therys
+  - Top Volantis
+  - Base Volantis
+
+formationfile: &formationfile ../01_drogon_ahm/realization-0/iter-0/share/results/tables/formations_res_only.csv
+
+faultlinefile: &faultlinefile ../01_drogon_ahm/realization-0/iter-0/share/results/polygons/toptherys--gl_faultlines_extract_postprocess.csv
+
+wellfolder: &wellfolder ../01_drogon_ahm/realization-0/iter-0/share/results/wells
+
+meanmap_colors: &meanmap_colors
+  - "#7f3b08"
+  - "#b35806"
+  - "#e08214"
+  - "#fdb863"
+  - "#fee0b6"
+  - "#f7f7f7"
+  - "#d8daeb"
+  - "#b2abd2"
+  - "#8073ac"
+  - "#542788"
+  - "#2d004b"
+
+rmsmap_colors: &rmsmap_colors
+  - "#fff7ec"
+  - "#fee8c8"
+  - "#fdd49e"
+  - "#fdbb84"
+  - "#fc8d59"
+  - "#ef6548"
+  - "#d7301f"
+  - "#b30000"
+  - "#7f0000"
+
+segy_colors: &segy_colors
+  - '#000000'
+  - '#001f4d'
+  - '#003786'
+  - '#0e58a8'
+  - '#217eb8'
+  - '#30a4ca'
+  - '#54c8df'
+  - '#9be4ef'
+  - '#e1e9d1'
+  - '#f3d573'
+  - '#e7b000'
+  - '#da8200'
+  - '#c65400'
+  - '#ac2301'
+  - '#820000'
+  - '#4c0000'
+  - '#040100'
+
+
+
+# ------------------------------
+options:
+  menu:
+    show_logo: true
+    bar_position: left
+    drawer_position: left
+    initially_pinned: true
+    initially_collapsed: true
+
+# ------------------------------
+layout:
+  - page: BHP QC
+            content:
+              - BhpAnalyzer:
+                  ensembles: *hm_ensembles
